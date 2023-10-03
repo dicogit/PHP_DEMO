@@ -13,13 +13,13 @@ pipeline {
 					script {
 						withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dpwd', usernameVariable: 'docr')]) {
 							echo "BUILD THE PHPDB IMAGE"
-							scp -o StrictHostKeyChecking=on -r php_files db_files ${BUILD_IP}:/home/ec2_user/
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'bash ~/php_piles/php_script.sh'
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker build -t ${IMAGE_PHP} -f /home/ec2_user/php_files .'
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker build -t ${IMAGE_DB} -f /home/ec2_user/db_files .'	
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker push ${IMAGE_PHP}'
-							ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker push ${IMAGE_DB}'
+							sh "scp -o StrictHostKeyChecking=on -r php_files db_files ${BUILD_IP}:/home/ec2_user/"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'bash ~/php_piles/php_script.sh'"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker build -t ${IMAGE_PHP} -f /home/ec2_user/php_files .'"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker build -t ${IMAGE_DB} -f /home/ec2_user/db_files .'	"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker push ${IMAGE_PHP}'"
+							sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker push ${IMAGE_DB}'"
 						}
 					}
 				}
@@ -31,10 +31,10 @@ pipeline {
 					script {
 						//withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dpwd', usernameVariable: 'docr')]) {
 							echo "DEPLOY THE PHPDB CONTAINER"
-							scp -o StrictHostKeyChecking=on -r compose_phpdb ${DEPLOY_IP}:/home/ec2_user/
-							ssh -o StrictHostKeyChecking=on ${DEPLOY_IP} 'bash ~/compose_phpdb/docker-compose-script.sh'
-						//	ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'
-							ssh -o StrictHostKeyChecking=on ${DEPLOY_IP} '1=${IMAGE_PHP} 2=${IMAGE_DB} docker-compose up -d -f /home/ec2-user/compose_phpdb/ .'
+							sh "scp -o StrictHostKeyChecking=on -r compose_phpdb ${DEPLOY_IP}:/home/ec2_user/"
+							sh "ssh -o StrictHostKeyChecking=on ${DEPLOY_IP} 'bash ~/compose_phpdb/docker-compose-script.sh'"
+						//	sh "ssh -o StrictHostKeyChecking=on ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
+							sh "ssh -o StrictHostKeyChecking=on ${DEPLOY_IP} '1=${IMAGE_PHP} 2=${IMAGE_DB} docker-compose up -d -f /home/ec2-user/compose_phpdb/ .'"
 						//}
 					}
 				}
