@@ -4,6 +4,8 @@ services:
      image: "${php}"
      ports:
      - 8001:80
+     deploy:
+        replicas:2
      depends_on:
      - mysql
    mysql:
