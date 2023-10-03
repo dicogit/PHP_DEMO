@@ -1,17 +1,17 @@
 version: "3"
 services:
    web:
-     image: "${DOCKER_IMAGE}"
+     image: "${1}"
      ports:
      - 8001:80
      depends_on:
      - mysql
    mysql:
-     image: devopstrainer/java-mvn-privaterepos:mysql
+     image: "${2}"
      volumes:
      - db_data:/var/lib/mysql
-     environment:
-        MYSQL_ROOT_PASSWORD: password
-        MYSQL_DATABASE: mydatabase
+     #environment:
+     #   MYSQL_ROOT_PASSWORD: password
+     #   MYSQL_DATABASE: mydatabase
 volumes:
    db_data: {}
