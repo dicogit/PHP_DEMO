@@ -1,8 +1,8 @@
 pipeline {
 	agent any 
 	environment {
-		IMAGE_PHP='devopsdr/pub:php${BUILD_NUMBER}'
-		IMAGE_DB='devopsdr/pub:DB${BUILD_NUMBER}'
+		IMAGE_PHP='devopsdr/pub:php$BUILD_NUMBER'
+		IMAGE_DB='devopsdr/pub:DB$BUILD_NUMBER'
 		BUILD_IP='ec2-user@65.2.140.18'
 		DEPLOY_IP='ec2-user@3.109.4.137'
 	}
@@ -34,7 +34,7 @@ pipeline {
 							sh "scp -o StrictHostKeyChecking=no -r compose_phpdb ${DEPLOY_IP}:/home/ec2-user/"
 							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'bash ~/compose_phpdb/docker-compose-script.sh ${IMAGE_PHP} ${IMAGE_DB}'"
 						//	sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
-							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'docker-compose up -d /home/ec2-user/compose_phpdb/'"
+							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'docker-compose up -d -f /home/ec2-user/compose_phpdb/docker-compose.yml'"
 						//}
 					}
 				}
