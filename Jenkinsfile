@@ -14,7 +14,7 @@ pipeline {
 						withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dpwd', usernameVariable: 'docr')]) {
 							echo "BUILD THE PHPDB IMAGE"
 							sh "scp -o StrictHostKeyChecking=no -r php_files db_files ${BUILD_IP}:/home/ec2-user/"
-							sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'bash ~/php_piles/php_script.sh'"
+							sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'bash ~/php_files/php_script.sh'"
 							sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker build -t ${IMAGE_PHP} -f /home/ec2_user/php_files .'"
 							sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker build -t ${IMAGE_DB} -f /home/ec2_user/db_files .'	"
 							sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
