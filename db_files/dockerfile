@@ -1,4 +1,4 @@
 FROM mysql:5.7
 ENV MYSQL_DATABASE 'mydatabase'
-    MYSQL_ROOT_PASSWORD 'password'
+ENV MYSQL_ROOT_PASSWORD 'password'
 COPY ./createtable.sql ./docker-entrypoint-initdb.d
