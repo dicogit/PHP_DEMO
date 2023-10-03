@@ -33,7 +33,7 @@ pipeline {
 							echo "DEPLOY THE PHPDB CONTAINER"
 							sh "scp -o StrictHostKeyChecking=no -r compose_phpdb ${DEPLOY_IP}:/home/ec2-user/"
 							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'bash ~/compose_phpdb/docker-compose-script.sh'"
-						//	sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
+						//	sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
 							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'sudo php=${IMAGE_PHP} db=${IMAGE_DB} docker-compose -f /home/ec2-user/compose_phpdb/docker-compose.yml up -d'"
 						//}
 					}

@@ -1,4 +1,4 @@
-create table EMP (
-    Name Varchar(20),
-    Phone Varchar(20)
+create table emp (
+    name Varchar(20),
+    phone Varchar(20)
 );
