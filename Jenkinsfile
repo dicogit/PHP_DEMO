@@ -34,7 +34,7 @@ pipeline {
 							sh "scp -o StrictHostKeyChecking=no -r compose_phpdb ${DEPLOY_IP}:/home/ec2-user/"
 							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'bash ~/compose_phpdb/docker-compose-script.sh'"
 						//	sh "ssh -o StrictHostKeyChecking=no ${BUILD_IP} 'sudo docker login -u ${docr} -p {dpwd}'"
-							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'sudo 1=${IMAGE_PHP} 2=${IMAGE_DB} docker compose up -d -f /home/ec2-user/compose_phpdb/.'"
+							sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_IP} 'sudo 1=${IMAGE_PHP} 2=${IMAGE_DB} docker-compose -f /home/ec2-user/compose_phpdb/. up -d'"
 						//}
 					}
 				}
