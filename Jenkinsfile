@@ -1,10 +1,10 @@
 pipeline {
 	agent any 
 	environment {
-		IMAGE_PHP 'devopsdr/pub:php${BUILD_NUMBER}'
-		IMAGE_DB 'devopsdr/pub:DB${BUILD_NUMBER}'
-		BUILD_IP 'ec2-user@65.2.140.18'
-		DEPLOY_IP 'ec2-user@3.109.4.137'
+		IMAGE_PHP='devopsdr/pub:php${BUILD_NUMBER}'
+		IMAGE_DB='devopsdr/pub:DB${BUILD_NUMBER}'
+		BUILD_IP='ec2-user@65.2.140.18'
+		DEPLOY_IP='ec2-user@3.109.4.137'
 	}
 	stages {
 		stage ('BUILD THE PHPDB IMAGE') {
